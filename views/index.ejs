@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Great Number Game</title>
+    </head>
+    <body>
+        <div class='container'>
+            <h2>
+                The Great Number Game!
+            </h2>
+            <h3>
+                Guest the number between 1 and 100!
+            </h3>
+            <form class="guessform" action="/guess" method="POST">
+                <input type = "number" name = "guess">
+                <input type = "submit" value = "submit">
+            </form>
+            <% if(context.status == "high"){ %>
+                <div class="messages" style='color: white; background-color: orangered; display: block'>
+                    <div class = "holdMessage">
+                        <h2>
+                            Too <%=context.status%>!! try with a lower number
+                        </h2>
+                    </div>
+                </div>
+            <% } 
+            else if(context.status == "none"){ %>
+                <div class="messages">
+                    <div class = "holdMessage">
+                        <h2>
+                            Status: <%=context.status%>
+                        </h2>
+                    </div>
+                </div>
+            <% } 
+            else if(context.status == "win"){ %>
+                <div class="messages" style='color: black; background-color: greenyellow; display: block'>
+                    <div class = "holdMessage">
+                        <h4>
+                            You <%=context.status%>!
+                        </h4>
+                        <form action="/reset" method="POST">
+                            <input type="submit" name="reset" value="Play Again">
+                        </form>
+                    </div>
+                </div>
+            <% } 
+            else if(context.status == "low"){ %>
+                <div class="messages" style='color: white; background-color: orange; display: block'>
+                    <div class = "holdMessage">
+                        <h4>Too <%=context.status%>!! try with a higher number</h4>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </body>
+</html>
