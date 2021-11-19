@@ -1,16 +1,13 @@
 const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
-
-const app = express();
-
-app.use(bodyParser.urlencoded({extended: true}));
-
-app.use(session({secret: 'root'}));
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/static"));
 app.set('views', __dirname + "/views");
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({secret: 'root'}));
 
 status = 'none';
 context = {};
@@ -31,7 +28,6 @@ app.get('/', function(req, res){
 app.post('/guess', function(req, res){
     console.log(req.body);
     console.log(req.session.ainumber);
-    console.log("*****************************************************");
 
     if(req.body.guess > req.session.ainumber){
         status = 'high';
@@ -55,10 +51,9 @@ app.post('/reset', function(req, res){
 });
 
 
-server.listen( 8080 );
-
-console.log("Running in localhost at port 8080");
-
+app.listen( 8080, function(){
+    console.log('This server is running in port 8080');
+});
 /*port = 7077; 
 app.listen(port, function(){
     console.log("Listening on Port: ", port);
